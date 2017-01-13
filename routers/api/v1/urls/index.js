@@ -18,11 +18,11 @@ router.post("/", function (req, res) {
         res.json({
             message: "Your shortened url for " + url + " is " + shorturl,
             shortUrl: shorturl,
-            error: false
+            error: false //false = no error
         });
     }).catch(function () {
         res.json({
-            error: true
+            error: true//if true = error
         });
         debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to create a shorturl. Body: " + JSON.stringify(req.body));
     });
@@ -32,11 +32,11 @@ router.get("/", function (req, res) {
     models.shortUrl.findAll().then(function (shortUrls) {
         res.json({
             data: shortUrls,
-            error: false
+            error: false///false = no error
         });
     }).catch(function () {
         res.json({
-            error: true
+            error: true//if true = error
         });
         debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to find all shorturls.");
     });
@@ -50,11 +50,11 @@ router.get("/:id", function (req, res) {
     }).then(function (shortUrl) {
         res.json({
             data: shortUrl,
-            error: false
+            error: false ///false = no error
         });
     }).catch(function () {
         res.json({
-            error: true
+            error: true//if true = error
         });
         debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to find shorturl of id " + id + ".");
     });
@@ -73,11 +73,11 @@ router.post("/:id", function (req, res) {
         })
         .then(function () {
             res.json({
-                error: false
+                error: false //false = no error
             });
         }).catch(function () {
             res.json({
-                error: true
+                error: true//if true = error
             });
             debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to update shorturl's(of id " + id + ") url to " + url + ".");
         });
@@ -91,7 +91,7 @@ router.delete("/:id", function (req, res) {
     }).then(function (shortUrl) {
         if (!shortUrl) {
             res.json({
-                error: true
+                error: true //if true = error
             });
             debugCtrl.debug("warning", "Warning. Path: " + req.originalUrl + ". Didn't find a shorturl of id " + id  + ". Failed to delete.");
             return;
@@ -99,17 +99,17 @@ router.delete("/:id", function (req, res) {
 
         shortUrl.destroy().then(function () {
             res.json({
-                error: false
+                error: false  //false = no error
             });
         }).catch(function () {
             res.json({
-                error: true
+                error: true  //if true = error
             });
             debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to delete a shorturl of id " + id + ".");
         });
     }).catch(function () {
         res.json({
-            error: true
+            error: true//if true = error
         });
         debugCtrl.debug("error", "Error. Path: " + req.originalUrl + ". Failed to find a shorturl of id " + id + ".");
     });
